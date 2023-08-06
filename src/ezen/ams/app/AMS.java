@@ -90,14 +90,12 @@ public class AMS {
 
 //	계좌 조회 기능
 	private static void showAccounts() {
-		System.out.print("계좌목록을 보시려면 1번을 눌러주세요");
-
+		System.out.print("전체 계좌목록은 1번, 원하는 계좌 조회는 2번을 입력하세요.");
 		int click = Integer.parseInt(scanner.nextLine());
-
 		Account[] alist = repository.getAccounts();
-		System.out.println("----------------------------------------------------------------");
-		System.out.println("계좌 타입 | 계좌번호 | 성함 | 비밀번호 | 계좌잔액 | \t대출금");
-		System.out.println("----------------------------------------------------------------");
+		
+		if(click == 1) {
+		accountHeader();		
 		for (int i = 0; i < repository.getCount(); i++) {
 			// instanceof를 이용하여 일반,마이너스 계좌 구분하기
 			if (alist[i] instanceof MinusAccount) {
@@ -110,7 +108,25 @@ public class AMS {
 		}
 		System.out.println("****************************************************************");
 		System.out.println("\t감사합니다. 다음에 또 이용해 주세요. \n");
-
+	
+		
+		}else if(click == 2) {
+			System.out.println("조회하실 계좌번호를 입력 해 주세요");
+		String num = scanner.nextLine();
+			for (Account account : alist) {
+				 if(account.getAccountNum().equals(num)) {
+					 accountHeader();
+					 System.out.println(account instanceof MinusAccount ? "마이너스계좌 \t" + account : "입출금계좌 \t" + account);return;
+				 }  
+			}
+			System.out.println("조회하신 계좌가 없습니다."); 
+		}
+	}
+	
+	private static void accountHeader() {
+		System.out.println("----------------------------------------------------------------");
+		System.out.println("계좌 타입 | 계좌번호 | 성함 | 비밀번호 | 계좌잔액 | \t대출금");
+		System.out.println("----------------------------------------------------------------");
 	}
 
 	/**

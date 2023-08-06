@@ -11,12 +11,15 @@ public class MemoryAccountRepository implements AccountRepository {
 	private Account[] accounts;// 계좌 여러개 관리해야 하니까 배열로
 	private int count; // 몇개가 저장되는지에 대한 속성
 
+
+	
 	public MemoryAccountRepository() {// 100개 만들때
-		this(100);
+		this(4);
 	}
 
 	public MemoryAccountRepository(int capacity) { // 더만들때
 		this.accounts = new Account[capacity];
+		count = 0;
 	}
 
 	/**
